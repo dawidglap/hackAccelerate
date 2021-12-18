@@ -12,6 +12,7 @@ class Article extends Model
     public function user()
     {
         // return $this->belongsTo(User::class, 'created_by_user_id');
+        // return $this->belongsTo(User::class, 'user_id'); user id si puo omettere perche e' di default in laravel 
         return $this->belongsTo(User::class);
     }
 }
