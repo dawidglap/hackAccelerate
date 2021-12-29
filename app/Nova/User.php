@@ -4,8 +4,11 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
 
@@ -61,6 +64,34 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
+
+
+            Select::make(__('Ruolo'), 'role')
+                ->options([
+                'viewer' => __('Ospite'),
+                'user' => __('Utente'),
+                'admin' => __('Amministratore')
+                ])
+                ->displayUsingLabels()
+
+                ->canSee(function($request) {
+                    return $request->user()->isAdmin();
+                })
+                ->sortable(),
+
+
+
+                Date::make(__('Creato il'), 'created_at')
+                    ->hideFromIndex()
+                    ->format('DD/MM/YYYY') # JS style
+                    ->pickerDisplayFormat('d/m/Y'), # Carbon style
+
+                DateTime::make(__('Modificato il'), 'updated_at')
+                    ->hideFromIndex()
+                    ->format('DD/MM/YYYY HH:mm:ss')
+                    ->pickerDisplayFormat('d/m/Y H:i:S'), 
+
+                
 
 
             HasMany::make(
