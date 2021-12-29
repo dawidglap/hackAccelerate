@@ -28,7 +28,7 @@ class AddMetafieldToArticles extends Migration
     public function down()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->dropColumns(['published_at','meta']);
+            $table->dropColumn(['published_at','meta']);
         });
     }
 }
