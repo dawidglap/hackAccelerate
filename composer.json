@@ -17,11 +17,13 @@
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "kabbouchi/nova-impersonate": "^1.10",
         "laravel/framework": "^8.65",
         "laravel/nova": "*",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "maatwebsite/laravel-nova-excel": "^1.2",
         "waynestate/nova-ckeditor4-field": "^0.7.0"
     },
     "require-dev": {

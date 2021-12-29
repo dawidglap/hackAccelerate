@@ -5,10 +5,12 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Waynestate\Nova\CKEditor;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class Article extends Resource
 {
@@ -51,7 +53,22 @@ class Article extends Resource
 
             Textarea::make(__('Descrizione'), 'description')->alwaysShow()->showOnIndex(),
 
-            Textarea::make(__('Corpo'), 'body'),
+            // Textarea::make(__('Corpo'), 'body'),
+
+
+            
+            CKEditor::make(__('Corpo'), 'body')->options([
+                'height' => 250,
+                'toolbar' => [
+                    ['Source', 'Format', 'FontSize'],
+                    ['Bold', 'Italic', 'Strike', 'Subscript', 'Superscript'],
+                    ['NumberedList', 'BulletedList', 'Outdent', 'Indent'],
+                    ['JustifyLeft', 'JustifyCenter', 'JustifyRight'],
+                    ['Cut','Copy','Paste', 'PasteText', 'PasteFromWord', 'RemoveFormat', 'HorizontalRule'],
+                ],
+            ])
+                    ->alwaysShow()
+                    ->hideFromIndex(),
 
             Boolean::make(__('Pubblicato'), 'published'),
 
@@ -106,6 +123,10 @@ class Article extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            (new DownloadExcel)
+            ->withHeadings()  //qui posso scegliere come chiamare le intestazioni della tabella da scaricare, iserisco un array.
+            ->allFields()
+        ];
     }
 }

@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
+use KABBOUCHI\NovaImpersonate\Impersonate;
 
 class User extends Resource
 {
@@ -98,7 +99,9 @@ class User extends Resource
                 __('Articoli'), 
                 'articles', 
                 Article::class
-            )
+            ),
+
+            Impersonate::make($this),
         ];
     }
 

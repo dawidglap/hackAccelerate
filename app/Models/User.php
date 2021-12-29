@@ -52,4 +52,18 @@ class User extends Authenticatable
     {
         return ($this->role == 'admin');
     }
+
+
+
+    public function canImpersonate($impersonated = null)
+    {
+        return $this->isAdmin();
+    
+    }
+
+    public function canBeImpersonated(?\Illuminate\Contracts\Auth\Authenticatable $impersonator = null)
+    {
+        return !$this->isAdmin();
+    }
+
 }
