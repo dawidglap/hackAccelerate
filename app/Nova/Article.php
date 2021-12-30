@@ -4,9 +4,11 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
 use Waynestate\Nova\CKEditor;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -71,6 +73,18 @@ class Article extends Resource
                     ->hideFromIndex(),
 
             Boolean::make(__('Pubblicato'), 'published'),
+
+
+            Date::make(__('Pubblicato il'), 'published_at')
+                ->format('DD/MM/YYYY')
+                ->pickerDisplayFormat('d/m/Y'),
+
+
+            KeyValue::make(__('Meta'),'meta')
+                ->keyLabel('Proprietà') 
+                ->valueLabel('Valore')
+                ->actionText('Aggiungi elemento') 
+                ->rules('json'),
 
 
             BelongsTo::make(

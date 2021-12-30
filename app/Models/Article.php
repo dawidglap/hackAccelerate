@@ -9,6 +9,15 @@ class Article extends Model
 {
     use HasFactory;
 
+
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'published_at' => 'date',
+        'meta' => 'array'
+    ];
+
     public function createdByUser()
     {
         // return $this->belongsTo(User::class, 'created_by_user_id');

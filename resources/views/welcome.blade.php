@@ -13,5 +13,26 @@ description="questae' la home page dell utente">
             </div>
         </div>
     </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+           @foreach($articles as $article)
+           <div>
+               <h1>{{ $article->title }}</h1>
+               <p>{{ $article->description }}</p>
+               @if($article->meta)
+
+                <p><strong>META</strong></p>
+                    @foreach($article->meta as $k=>$v)
+                        <p>
+                            <strong>{{ $k }}</strong> : {{ $v }}
+                        </p>
+
+                    @endforeach
+               @endif  
+           </div>
+           @endforeach
+        </div>
+    </div>
  </div>
 </x-layouts.app>
